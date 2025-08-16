@@ -24,3 +24,4 @@ unzip agent-os-ultra-v2.zip && cd agent-os-ultra-v2
 - `curl http://127.0.0.1:5173/health`
 - `open http://127.0.0.1:5173/ui`
 # touch
+# touch
