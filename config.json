@@ -1,0 +1,30 @@
+{
+  "allowed_apps": [
+    "Arc",
+    "Claude",
+    "Claude Desktop",
+    "Figma",
+    "Finder",
+    "Google Chrome",
+    "Notes",
+    "Safari",
+    "Terminal",
+    "Visual Studio Code",
+    "Xcode",
+    "Mail",
+    "Calendar"
+  ],
+  "allowed_url_domains": [
+    "*"
+  ],
+  "allowed_shortcuts": [
+    "*"
+  ],
+  "allow_key_injection": true,
+  "allowed_exec_bins": [
+    "*"
+  ],
+  "workspace": "./workspace",
+  "allow_fs_outside_workspace": true,
+  "require_approval_for": []
+}

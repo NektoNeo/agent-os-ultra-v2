@@ -1,0 +1,15 @@
+<!doctype html><html><body style="font:13px -apple-system; padding:12px;">
+  <h3>Configurator Builder v2</h3>
+  <p>URL спеки (<code>https://.../figma/spec</code>)</p>
+  <input id="url" style="width:100%;padding:8px" placeholder="https://YOUR-DOMAIN/figma/spec"/>
+  <div style="margin-top:8px;display:flex;gap:8px">
+    <button id="save">Save URL</button><button id="render">Render</button>
+  </div>
+  <script>
+    const input = document.getElementById('url');
+    parent.postMessage({ pluginMessage: { type: 'get-url' } }, '*');
+    window.onmessage = e => { const m = e.data.pluginMessage; if (m && m.type==='set-url') input.value = m.value || ''; };
+    document.getElementById('save').onclick = () => parent.postMessage({ pluginMessage: { type:'save-url', url: input.value } }, '*');
+    document.getElementById('render').onclick = () => parent.postMessage({ pluginMessage: { type:'render', url: input.value } }, '*');
+  </script>
+</body></html>

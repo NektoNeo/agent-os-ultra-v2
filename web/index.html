@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Agent‑OS Ultra v2</title>
+<style>
+body{font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;background:#0f1115;color:#e5e7eb;margin:0}
+header{padding:16px 20px;border-bottom:1px solid #1f2430}
+main{padding:20px;max-width:980px;margin:auto}
+.card{background:#131722;border:1px solid #1f2430;border-radius:10px;padding:16px;margin-bottom:16px}
+input,button,textarea{background:#0b0e14;color:#e5e7eb;border:1px solid #2a3140;border-radius:8px;padding:8px}
+button{cursor:pointer}
+code{background:#0b0e14;padding:2px 6px;border-radius:6px;border:1px solid #2a3140}
+</style>
+</head>
+<body>
+<header><h2>Agent‑OS Ultra v2 UI</h2></header>
+<main>
+  <div class="card">
+    <h3>Health</h3>
+    <button onclick="call('/health')">/health</button>
+    <pre id="out-health"></pre>
+  </div>
+  <div class="card">
+    <h3>Open URL</h3>
+    <input id="url" style="width:60%" value="https://example.com"/>
+    <button onclick="post('/open_url',{url:document.getElementById('url').value})">Open in Safari</button>
+    <pre id="out-url"></pre>
+  </div>
+  <div class="card">
+    <h3>Exec job</h3>
+    <input id="cmd" style="width:60%" value="node -v"/>
+    <button onclick="post('/exec/start',{cmd:document.getElementById('cmd').value}).then(j=>{if(j.job_id) setTimeout(()=>call('/exec/logs?job_id='+j.job_id,'out-exec'),1000)})">Run</button>
+    <pre id="out-exec"></pre>
+  </div>
+  <div class="card">
+    <h3>Vision</h3>
+    <input id="vtext" placeholder="Text to find" value="File"/>
+    <button onclick="post('/vision/locate_text',{text:document.getElementById('vtext').value})">Locate text</button>
+    <pre id="out-vision"></pre>
+  </div>
+</main>
+<script>
+async function call(path, outId){
+  const res = await fetch(path, { headers: auth() }); const j = await res.json();
+  document.getElementById(outId||('out'+path)).textContent = JSON.stringify(j,null,2);
+  return j;
+}
+async function post(path, body){
+  const res = await fetch(path, { method:'POST', headers: { 'Content-Type':'application/json', ...auth() }, body: JSON.stringify(body||{}) });
+  const j = await res.json();
+  document.getElementById('out'+path).textContent = JSON.stringify(j,null,2);
+  return j;
+}
+function auth(){ const t = localStorage.getItem('token') || prompt('Bearer token (once)'); if(t) localStorage.setItem('token',t); return {'Authorization':'Bearer '+(localStorage.getItem('token')||'')}; }
+</script>
+</body>
+</html>

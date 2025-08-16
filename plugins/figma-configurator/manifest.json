@@ -1,0 +1,22 @@
+{
+  "name": "Configurator Builder (Agent‑OS Ultra v2)",
+  "id": "com.agentos.ultra2.configurator",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "*"
+    ]
+  },
+  "relaunchButtons": [
+    {
+      "command": "render",
+      "name": "Render Configurator"
+    }
+  ]
+}

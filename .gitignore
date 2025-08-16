@@ -1,0 +1,8 @@
+.venv/
+.env
+workspace/
+__pycache__/
+*.log
+.DS_Store
+openapi/pack/*.json
+actions/pack/*.json
